@@ -19,19 +19,23 @@ img,video{max-width:100%;}
 .eyebrow.on-dark{color:var(--sun);}
 .card{background:#fff;border-radius:24px;padding:32px;border:1px solid var(--line);}
 .nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;background:rgba(247,241,228,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);flex-wrap:wrap;row-gap:14px;}
-.nav-links{display:flex;align-items:center;gap:22px;font-weight:700;font-size:14px;flex-wrap:wrap;}
+.nav-links{display:flex;align-items:center;gap:22px;font-weight:700;font-size:14px;flex-wrap:wrap;position:relative;}
 .nav-links a{opacity:0.85;}
+.nav-links a.active{opacity:1;color:var(--teal-dark);}
 .nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:none;padding:0;cursor:pointer;flex:none;}
 .nav-toggle span{display:block;width:22px;height:2.5px;background:var(--ink);border-radius:2px;transition:transform 0.2s ease, opacity 0.2s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+.nav-indicator{position:absolute;left:0;bottom:-8px;width:0;height:2.5px;background:var(--sun-dark);border-radius:999px;opacity:0;pointer-events:none;transition:left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;}
 @media (max-width:760px){
   .nav-toggle{display:flex;}
   .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;gap:4px;font-size:15px;}
   .nav-links.open{display:flex;}
   .nav-links a{padding:12px 4px;text-align:center;border-radius:10px;}
+  .nav-links a.active{background:var(--teal-pale);}
   .nav-links a.btn{justify-content:center;margin-top:8px;}
+  .nav-indicator{display:none;}
 }
 .footer{background:var(--ink);color:var(--cream);padding:56px 5vw 32px;}
 .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:40px;}

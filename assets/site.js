@@ -54,3 +54,47 @@
     if (window.innerWidth > 760) { closeMenu(); }
   });
 })();
+
+// Indicador de página activa: en vez de ocultar el link de la página actual,
+// se marca con una línea debajo que se desliza al link que se pasa el mouse por encima.
+(function () {
+  var navLinks = document.querySelector('.nav-links');
+  if (!navLinks) return;
+  var links = Array.prototype.filter.call(navLinks.querySelectorAll('a'), function (a) {
+    return !a.classList.contains('btn');
+  });
+  if (!links.length) return;
+
+  var indicator = document.createElement('span');
+  indicator.className = 'nav-indicator';
+  navLinks.appendChild(indicator);
+
+  var currentPage = location.pathname.split('/').pop() || 'index.html';
+  var activeLink = links[0];
+  links.forEach(function (a) {
+    var page = (a.getAttribute('href') || '').split('#')[0].split('/').pop();
+    if (page === currentPage) { activeLink = a; }
+  });
+  activeLink.classList.add('active');
+
+  function moveIndicatorTo(el, animate) {
+    if (window.innerWidth <= 760) return;
+    if (!animate) { indicator.style.transition = 'none'; }
+    indicator.style.left = el.offsetLeft + 'px';
+    indicator.style.width = el.offsetWidth + 'px';
+    indicator.style.opacity = '1';
+    if (!animate) {
+      indicator.offsetHeight; // reflow, así el próximo cambio sí anima
+      indicator.style.transition = '';
+    }
+  }
+
+  moveIndicatorTo(activeLink, false);
+  window.addEventListener('load', function () { moveIndicatorTo(activeLink, false); });
+  window.addEventListener('resize', function () { moveIndicatorTo(activeLink, false); });
+
+  links.forEach(function (a) {
+    a.addEventListener('mouseenter', function () { moveIndicatorTo(a, true); });
+  });
+  navLinks.addEventListener('mouseleave', function () { moveIndicatorTo(activeLink, true); });
+})();
